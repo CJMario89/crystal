@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import {RectAreaLightHelper} from "three/examples/jsm/helpers/RectAreaLightHelper.js";
 import { EXRLoader } from 'three/examples/jsm/loaders/EXRLoader';
@@ -11,15 +11,16 @@ const camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.inner
 const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer( { alpha: true } );
 const control = new OrbitControls(camera, renderer.domElement);
-var GLTF;
+var GLTF: THREE.Group;
 
 function init3D(){
     //camera
-    camera.position.z = 10;
+    camera.position.y = 10;
+    camera.position.z = 30;
 
     //light
-    const light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 100 );
-    light.position.set(0, -5, 0);
+    const light = new THREE.HemisphereLight( 0x0000ff, 0x000000, 100 );
+    light.position.set(0, 5, 0);
     light.lookAt(new THREE.Vector3(0, 0, 0));
     scene.add( light );
     
@@ -41,17 +42,19 @@ function init3D(){
         const pmremGenerator = new THREE.PMREMGenerator(renderer);
         pmremGenerator.compileEquirectangularShader();
     
-        new EXRLoader().load("/adams_place_bridge_2k.exr", function(texture){
+        // new EXRLoader().load("/adams_place_bridge_2k.exr", function(texture){
+        //     var cubeMap = pmremGenerator.fromEquirectangular(texture);
+        //     var newEnvMap = cubeMap.texture;
+        new THREE.TextureLoader().load("crypstal-texture.jpg", function(texture){
             var cubeMap = pmremGenerator.fromEquirectangular(texture);
-            var newEnvMap = cubeMap.texture;
-    
+            const newEnvMap = cubeMap.texture;
     
             gltf.scene.traverse(function(child){
                 for(var i = 0; i < child.children.length; i++){
-                    child.children[i].material.envMap = newEnvMap;
-                    child.children[i].material.envMapIntensity = 5;
-                    child.children[i].material.opacity = 1;
-                    child.children[i].material.needsUpdate = true;
+                    ((child.children[i] as THREE.Mesh).material as THREE.MeshStandardMaterial).envMap = newEnvMap;
+                    ((child.children[i] as THREE.Mesh).material as THREE.MeshStandardMaterial).envMapIntensity = 3;
+                    ((child.children[i] as THREE.Mesh).material as THREE.MeshStandardMaterial).opacity = 1;
+                    ((child.children[i] as THREE.Mesh).material as THREE.MeshStandardMaterial).needsUpdate = true;
                 }
             });
     
@@ -74,7 +77,7 @@ function animation(){
     requestAnimationFrame(animation);
 
     if(GLTF != undefined){
-        GLTF.rotation.y += 0.01;
+        GLTF.rotation.y += 0.002;
     }
 }
 
