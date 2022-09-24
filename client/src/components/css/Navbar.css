@@ -1,0 +1,85 @@
+.navbarContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    top: 3vh;
+    left: 0px;
+    position: absolute;
+    z-index: 100;
+}
+.tm{
+    display: block;
+    font-size: 3vw;
+    font-family: 'Cinzel-Medium';
+    position: relative;
+    text-align: center;
+    /* text-shadow: 0px 0px 15px white, 0px 0px 25px white, 0px 0px 42px white; */
+    text-shadow: 0px 0px 1px white, 0px 0px 5px rgb(255, 255, 255);
+    color: white;
+    transition: all 1s ease-in-out;
+    /* animation: title 2s ease-in-out 0s infinite;
+    animation-play-state: running; */
+    text-decoration: none;
+    margin-left: 3vw;
+    margin-right: 3vw;
+    z-index: 100;
+}
+.ctm{
+    text-shadow: 0px 0px 1px rgb(255, 180, 120), 0px 0px 5px rgb(255, 180, 120);
+    color: rgb(255, 180, 120);
+}
+/* .tm:hover{
+    animation-play-state: paused;
+} */
+/* @keyframes title {
+    0%{
+        text-shadow: 0px 0px 3px white, 0px 0px 5px white;
+    }
+    50%{
+        text-shadow: 0px 0px 3px white;
+    }
+    100%{
+        text-shadow: 0px 0px 3px white, 0px 0px 5px white;
+    }
+} */
+
+.ts{
+    display: block;
+    position: relative;
+    text-shadow: 0px 0px 1px white, 0px 0px 5px rgba(255, 255, 255);
+    color: white;
+    font-size: 2vw;
+    font-family: 'Cinzel-Medium';
+    text-align: center;
+    margin-left: 4vw;
+    text-decoration: none;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 1s ease-in-out;
+}
+
+.cts{
+    text-shadow: 0px 0px 1px rgb(255, 180, 120), 0px 0px 5px rgb(255, 180, 120);
+    color: rgb(255, 180, 120);
+}
+
+.socialCon{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 12vw;
+}
+.telegram img{
+    width: 3vw;
+}
+.twitter img{
+    width: 2.8vw;
+}
+.ss img{
+    filter: invert(1);
+    margin-left: 1.5vw;
+}

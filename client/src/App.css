@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'Cinzel-Medium';
+    src: url('../public/Cinzel-Medium.ttf');
+}
+@font-face {
+    font-family: 'Ramaraja-Regular';
+    src: url('../public/Ramaraja-Regular.ttf');
+}
 body{
-  background: linear-gradient(135deg, #00DDDD 0%, #CCAAFF 100% );
+    font-family: 'Cinzel-Medium';
 }
