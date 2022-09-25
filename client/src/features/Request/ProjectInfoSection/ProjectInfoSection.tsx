@@ -1,6 +1,7 @@
 import React, {useEffect, useState, SyntheticEvent} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../../app/hook'
+import { alertMsg } from '../../../components/MessageSlice'
 import Progressbar from '../Progrssbar/Progressbar'
 import { setCheckStage, selectRequset } from '../RequestSlice'
 import { fillRequeset } from '../RequestSlice'
@@ -38,12 +39,10 @@ const ProjectInfoSection = () => {
         for(let i = 0; i < inputs.length; i++){
             if(inputs[i].type === 'number'){
                 if(!Number.isInteger(Number(inputs[i].value)) || Number(inputs[i].value) === 0){
-                    // alert("Chain ID must be positive integer!")
                     return {"status": false, "node":inputs[i]};
                 }
             }
             if(inputs[i].value === ''){
-                // alert(`${inputs[i].name} must be filled`);
                 return {"status": false, "node":inputs[i]};
             }
         }
@@ -67,6 +66,11 @@ const ProjectInfoSection = () => {
             dispatch(setCheckStage(0));
             navigate('/request/contactInfoSection')
         }else{
+            if(node?.type === 'number'){
+                dispatch(alertMsg("Chain ID must be positive integer!"));
+            }else{
+                dispatch(alertMsg(`${node?.name} must be filled`));
+            }
             node?.focus();
         }
     }

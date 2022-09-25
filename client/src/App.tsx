@@ -2,8 +2,7 @@ import './App.css';
 import React from "react";
 import {
     Routes,
-    Route,
-    useLocation
+    Route
   } from "react-router-dom";
 import Audited from './features/Audited/Audited';
 import Request from './features/Request/Request';
@@ -18,7 +17,6 @@ import FinishSection from './features/Request/FinishSection/FinishSection';
 
 
 function App() {
-    const path = useLocation().pathname;
     return (
         <>
             <Layout/>

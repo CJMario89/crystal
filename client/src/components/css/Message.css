@@ -1,0 +1,73 @@
+.msgCon{
+    position: fixed;
+    width: 35vh;
+    height: 10vh;
+    right: 0px;
+    top: 15vh;
+    padding: 3vh;
+    font-size: 1.4vw;
+    z-index: 100;
+    border-bottom-left-radius: 1.5vh;
+    border-top-left-radius: 1.5vh;
+    background-color: rgb(255, 150, 130);
+    box-shadow: 0px 0px 12px rgb(255, 180, 120), 0px 0px 15px rgb(255, 180, 120);
+    text-shadow: 0px 0px 1px white, 0px 0px 5px rgba(255, 255, 255);
+    color: white;
+    animation: showMsg 5s ease-in-out 0s 1 none;
+    animation-fill-mode: none;
+    transform: translateX(120%);
+    opacity: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Ramaraja-Regular';
+}
+
+@keyframes showMsg{
+    0%{
+        transform: translateX(120%);
+        opacity: 1;
+    }
+    10%{
+        transform: translateX(0%);
+        opacity: 1;
+    }
+    99%{
+        opacity: 1;
+    }
+    100%{
+        transform: translateX(0%);
+        opacity: 0;
+    }
+}
+
+.msgCon:hover{
+    animation-play-state: paused;
+}
+
+
+.msgCon::after{
+    content: "";
+    display: block;
+    width: 90%;
+    position: absolute;
+    height: 5px;
+    bottom: 1vh;
+    left: 50%;
+    transform: translateX(-50%);
+    background:linear-gradient(to right, rgb(205, 100, 80) 0%, rgb(205, 100, 80) 50%, transparent 50%, transparent 100%);
+    background-repeat: no-repeat;
+    background-size: 200% 100%;
+    background-position: 100% 0px;
+    animation: msgShowProgress 5s ease-in-out 0s 1 forwards;
+}
+
+@keyframes msgShowProgress{
+    0%{
+        background-position: 100% 0px;
+    }
+    100%{
+        background-position: 0% 0px;
+    }
+}

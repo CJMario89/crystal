@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import requestReducer from '../features/Request/RequestSlice'
 import pendingReducer from '../features/Pending/PendingSlice'
+import messageReducer from '../components/MessageSlice'
 
 export const store = configureStore({
     reducer: {
         request: requestReducer,
-        pending: pendingReducer
+        pending: pendingReducer,
+        message: messageReducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
   })

@@ -1,6 +1,7 @@
 import React, {useEffect, useState, SyntheticEvent} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../../app/hook'
+import { alertMsg } from '../../../components/MessageSlice'
 import Progressbar from '../Progrssbar/Progressbar'
 import { selectCheckStage, selectRequset, setCheckStage } from '../RequestSlice'
 import { fillRequeset } from '../RequestSlice'
@@ -49,7 +50,6 @@ const ContactInfoSection = () => {
         for(let i = 0; i < inputs.length - 1; i++){
             
             if(inputs[i].value === ""){
-                // alert(`${inputs[i].name} must be filled`);
                 return {"status": false, "node":inputs[i]};
             }
         }
@@ -74,6 +74,7 @@ const ContactInfoSection = () => {
         if(status){
             navigate('/request/otherInfoSection')
         }else{
+            dispatch(alertMsg(`${node?.name} must be filled`));
             node?.focus();
         }
     }
