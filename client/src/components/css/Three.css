@@ -6,15 +6,3 @@
     /* background: linear-gradient(to bottom, rgb(0, 221, 221, 0.5) 0%, rgb(204, 170, 255, 0.5) 100% ) */
     background: linear-gradient(to bottom, rgb(70, 0, 170, 0.7) 80%,rgb(255, 180, 120, 0.7) 100% );
 }
-.mask{
-    display: block;
-    position: fixed;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    background: linear-gradient(45deg , rgba(130, 130, 130, 0.1) 0%,  rgba(0, 0, 0, 0) 100%),
-                linear-gradient(135deg , rgba(130, 130, 130, 0.1) 0%,  rgba(0, 0, 0, 0) 100%),
-                linear-gradient(225deg , rgba(130, 130, 130, 0.1) 0%,  rgba(0, 0, 0, 0) 100%),
-                linear-gradient(315deg , rgba(130, 130, 130, 0.1) 0%,  rgba(0, 0, 0, 0) 100%);
-}

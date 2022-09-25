@@ -1,3 +1,4 @@
+import { parseISO } from 'date-fns'
 import React, {useEffect, useState, SyntheticEvent} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../../app/hook'
@@ -42,6 +43,19 @@ const ProjectInfoSection = () => {
                     return {"status": false, "node":inputs[i]};
                 }
             }
+            if(inputs[i].type === 'datetime-local'){
+                try{
+                    const result = parseISO(inputs[i].value)
+                    console.log(result.getDate())
+                    if(isNaN(result.getDate())){
+                        return {"status": false, "node":inputs[i]};
+                    }
+                }catch{
+                    console.log("here")
+                    dispatch(alertMsg("Format of Launch Time is wrong!"));
+                    return {"status": false, "node":inputs[i]};
+                }
+            }
             if(inputs[i].value === ''){
                 return {"status": false, "node":inputs[i]};
             }
@@ -68,6 +82,8 @@ const ProjectInfoSection = () => {
         }else{
             if(node?.type === 'number'){
                 dispatch(alertMsg("Chain ID must be positive integer!"));
+            }else if(node?.type === 'datetime-local'){
+                dispatch(alertMsg("Format of Launch Time is wrong!"));
             }else{
                 dispatch(alertMsg(`${node?.name} must be filled`));
             }

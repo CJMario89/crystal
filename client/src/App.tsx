@@ -13,6 +13,7 @@ import Layout from './components/Layout';
 import ContactInfoSection from './features/Request/ContactinfoSection/ContactInfoSection';
 import OtherInfoSection from './features/Request/OtherInfoSection/OtherInfoSection';
 import FinishSection from './features/Request/FinishSection/FinishSection';
+import Team from './features/Team/Team';
 
 
 
@@ -32,6 +33,7 @@ function App() {
                         <Route path="finishSection" element={<FinishSection />} />
                     </Route> 
                     <Route path="pending" element={<Pending />} />
+                    <Route path="team" element={<Team />} />
                 </Route>
             </Routes>
         </>

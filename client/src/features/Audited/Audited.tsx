@@ -4,11 +4,14 @@ import React from "react";
 
 function Audit() {
   return (
-    <div>
-        <div>
-            projects been audited
+    <>
+        <div className='auditedDes'>
+            Projects has been audited
         </div>
-    </div>
+        <div className='audited'>
+            There is no project been audited yet.
+        </div>
+    </>
   );
 }
 

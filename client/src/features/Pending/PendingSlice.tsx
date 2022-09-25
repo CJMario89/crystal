@@ -1,15 +1,31 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { REQUEST_STATE } from "../Request/RequestSlice";
 import type { RootState } from "../../app/store";
 
+export class PENDING_STATE{
+    name: string;
+	website_URL: string;
+	chain_id: string;
+	verified_contract_address: string;
+	deposit_fees: string;
+	withdrawal_fees: string;
+	daily_ROI: string;
+	launch_time: string;
+	project_telegram_link: string;
+	owner_telegram_link: string;
+	project_twitter?: string;
+	past_projects?: string;
+	other_audits?: string;
+	other_comments?: string;
+    created_at: string;
+}
 
-class PENDING_STATE{
+class INITIAL_STATE{
     loading: 'idle' | 'failed' | 'successed' | 'pending';
-    pending: REQUEST_STATE[];
+    pending: PENDING_STATE[];
     error: string | undefined;
 }
 
-const initialState:PENDING_STATE = {
+const initialState:INITIAL_STATE = {
     loading: 'idle',
     pending: [],
     error: ''
@@ -28,7 +44,7 @@ export const pendingSlice = createSlice({
     },
     extraReducers: (builder)=>{
         builder
-        .addCase(fetchPending.fulfilled, (state:PENDING_STATE, action:PayloadAction<REQUEST_STATE[]>) => {
+        .addCase(fetchPending.fulfilled, (state:INITIAL_STATE, action:PayloadAction<PENDING_STATE[]>) => {
             state.pending = action.payload;
             state.loading = 'successed'
         })
