@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import { useAppDispatch, useAppSelector } from '../../app/hook'
 import PendingContainer from './PendingContainer';
-import { fetchPending, getPendingStatus, PENDING_STATE, selectAllPending } from './PendingSlice';
+import { fetchPending, getPendingError, getPendingStatus, PENDING_STATE, selectAllPending } from './PendingSlice';
 import { alertMsg } from '../../components/MessageSlice';
 
 
@@ -13,6 +13,7 @@ const Pending = () => {
     const dispatch = useAppDispatch();
     const pendingStatus = useAppSelector(getPendingStatus);
     const pending = useAppSelector(selectAllPending);
+    const pendingError = useAppSelector(getPendingError);
     const [ pendingCon, setPendingCon ] = useState<PENDING_STATE[]>();
 
     useEffect(()=>{
@@ -23,8 +24,10 @@ const Pending = () => {
         }else if(pendingStatus === 'refetch'){
             dispatch(fetchPending())
             dispatch(alertMsg("Request successed"));
+        }else if(pendingStatus === 'failed'){
+            console.log(pendingError)
         }
-    }, [pendingStatus, dispatch, pending])
+    }, [pendingStatus, dispatch, pending, pendingError])
 
     return (
         <>
