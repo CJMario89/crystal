@@ -1,9 +1,11 @@
 import "./FinishSection.css"
 import React, { useEffect, useRef} from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../app/hook'
 import { postRequested, selectCheckStage, selectPostStatus, selectRequset } from '../RequestSlice'
 import Progressbar from "../Progrssbar/Progressbar"
+import { refetch } from "../../Pending/PendingSlice"
+import { alertMsg } from "../../../components/MessageSlice"
 
 const FinishSection = () => {
     const request = useAppSelector(selectRequset)
@@ -24,6 +26,9 @@ const FinishSection = () => {
     }, [navigate, checkStage])
     
 
+    const goBack = () => {
+        navigate('/request/otherInfoSection');
+    }
 
 
     const submitRequested = ()=>{
@@ -34,13 +39,15 @@ const FinishSection = () => {
 
     useEffect(()=>{
         if(postStatus === 'successed'){
-
+            dispatch(refetch());
+            navigate('/pending')
         }else if(postStatus === 'pending'){
+            dispatch(alertMsg("Requesting"))
             submitLink.current = '#top'
         }else if(postStatus === 'failed'){
-
+            dispatch(alertMsg("Whoops something went wrong, please contact"))
         }
-    }, [postStatus])
+    }, [postStatus, dispatch, navigate])
 
     return (
         <div id="#top">
@@ -82,16 +89,12 @@ const FinishSection = () => {
                 </div>
                 
                 <div className="requestButControl">
-                    <Link to='/request/otherInfoSection'>
-                        <button className='requestBut'>
-                            Back
-                        </button>
-                    </Link>
-                    <Link to={submitLink.current} onClick={submitRequested}>
-                        <button className='requestBut'>
-                            Submit
-                        </button>
-                    </Link>
+                    <button className='requestBut' onClick={goBack}>
+                        Back
+                    </button>
+                    <button className='requestBut' onClick={submitRequested}>
+                        Submit
+                    </button>
                 </div>
             </div>
         </div>

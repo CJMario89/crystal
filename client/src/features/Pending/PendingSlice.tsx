@@ -20,7 +20,7 @@ export class PENDING_STATE{
 }
 
 class INITIAL_STATE{
-    loading: 'idle' | 'failed' | 'successed' | 'pending';
+    loading: 'idle' | 'failed' | 'successed' | 'pending' | 'refetch';
     pending: PENDING_STATE[];
     error: string | undefined;
 }
@@ -41,6 +41,9 @@ export const pendingSlice = createSlice({
     name: "pending",
     initialState,
     reducers:{
+        refetch: ((state)=>{
+            state.loading = 'refetch';
+        }),
     },
     extraReducers: (builder)=>{
         builder
@@ -61,5 +64,7 @@ export const pendingSlice = createSlice({
 export const selectAllPending = (state:RootState) =>  state.pending.pending
 export const getPendingStatus = (state:RootState) =>  state.pending.loading 
 export const getPendingError = (state:RootState) =>  state.pending.error
+
+export const refetch = pendingSlice.actions.refetch
 
 export default pendingSlice.reducer

@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useAppDispatch, useAppSelector } from '../../app/hook'
 import PendingContainer from './PendingContainer';
 import { fetchPending, getPendingStatus, PENDING_STATE, selectAllPending } from './PendingSlice';
+import { alertMsg } from '../../components/MessageSlice';
 
 
 
@@ -19,6 +20,9 @@ const Pending = () => {
             dispatch(fetchPending())
         }else if(pendingStatus === 'successed'){
             setPendingCon(pending);
+        }else if(pendingStatus === 'refetch'){
+            dispatch(fetchPending())
+            dispatch(alertMsg("Request successed"));
         }
     }, [pendingStatus, dispatch, pending])
 
