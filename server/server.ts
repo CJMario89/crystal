@@ -1,7 +1,7 @@
 import express ,{Request, Response} from "express";
 import * as AuditController from "./controller/AuditController";
 const app = express();
-const port = process.env.PORT || 5000;
+// const port = process.env.PORT || 5000;
 
 app.use(express.json())
 app.get("/api/getAllRequested", AuditController.RequestedController.getAllRequested);
