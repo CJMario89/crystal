@@ -24,15 +24,15 @@ const Team = () => {
             
         
             //light
-            const light = new THREE.HemisphereLight( 0xeecc77,  0xeecc77, 1 );
+            const light = new THREE.HemisphereLight( 0xddaa99,  0xddaa99, 1 );
             light.position.set(0, 3, 0);
             light.lookAt(new THREE.Vector3(0, 3, 0));
             scene.add( light );
-            const pointLight = new THREE.PointLight(0xeecc77, 5, 15);
+            const pointLight = new THREE.PointLight(0xddaa99, 5, 15);
             pointLight.position.set(0, 5, 0);
             pointLight.lookAt(new THREE.Vector3(0, 0, 0));
             scene.add( pointLight );
-            const pointLight1 = new THREE.PointLight(0xeedd77, 5, 15);
+            const pointLight1 = new THREE.PointLight(0xddaa99, 5, 15);
             pointLight.position.set(-5, 6, -1);
             pointLight.lookAt(new THREE.Vector3(0, 0, 0));
             scene.add( pointLight1 );
