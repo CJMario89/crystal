@@ -99,7 +99,7 @@ const Team = () => {
     return (
         <>
             <div className={loading}>
-                Loading...
+                Loading<img src='loading.gif' alt=''></img>
             </div>
             <div className='team'>
             </div>
