@@ -1,6 +1,6 @@
 import './PendingContainer.css'
 import React, { useEffect, useState } from 'react'
-import { format, parseISO } from 'date-fns'
+import { parseISO } from 'date-fns'
 import { PENDING_STATE } from './PendingSlice'
 
 
@@ -49,10 +49,10 @@ const PendingContainer = (props:PENDING_STATE) => {
             </div>
             
             <div className='pendingC website' onClick={goWebsiteURL}>
-                <img src='/web.svg'></img>
+                <img src='/web.svg' alt=''></img>
             </div>
             <div className='pendingC telegramC' onClick={goTelegram}>
-                <img src='/telegram.svg'></img>
+                <img src='/telegram.svg' alt=''></img>
             </div>
             <div className='pendingC launchTime'>
                 {lauchTime}

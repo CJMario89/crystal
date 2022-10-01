@@ -20,13 +20,7 @@ const ProjectInfoSection = () => {
         setProjectInfo(request)
     }, [request, dispatch])
 
-    useEffect(()=>{
-        if(checkInvalid().status){
-            setNextClassName('requestBut');
-        }else{
-            setNextClassName('requestButDisable');
-        }
-    }, [projectInfo])
+    
 
     const onProjectInfoChange = async(e:SyntheticEvent) => {
         const target = e.target as HTMLInputElement;
@@ -46,7 +40,6 @@ const ProjectInfoSection = () => {
             if(inputs[i].type === 'datetime-local'){
                 try{
                     const result = parseISO(inputs[i].value)
-                    console.log(result.getDate())
                     if(isNaN(result.getDate())){
                         return {"status": false, "node":inputs[i]};
                     }
@@ -63,7 +56,13 @@ const ProjectInfoSection = () => {
         return {"status": true, "node":null};
     }
 
-
+    useEffect(()=>{
+        if(checkInvalid().status){
+            setNextClassName('requestBut');
+        }else{
+            setNextClassName('requestButDisable');
+        }
+    }, [projectInfo])
 
     const storeRequest = () => {
         dispatch(fillRequeset(projectInfo))

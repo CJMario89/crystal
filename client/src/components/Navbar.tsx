@@ -1,5 +1,6 @@
 import './css/Navbar.css';
-import { Link } from "react-router-dom";
+import { Link, LinkProps } from "react-router-dom";
+import Logo3D from './Logo3D';
 
 
 interface PROP{
@@ -17,6 +18,9 @@ function Navbar(props: PROP) {
             <div className='navbarContainer'>
                 <Link to="/" className={mainClassName}>
                     Crystal Audit
+                    <div className='logo3D'>
+                        <Logo3D></Logo3D>
+                    </div>
                 </Link>
                 <Link to="/audited" className={AuditedClassName}>Audited</Link>
                 <Link to="/request" className={RequestClassName}>Request</Link>
