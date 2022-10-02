@@ -47,7 +47,6 @@
     ]
   },
   "devDependencies": {
-    "@expo/webpack-config": "^0.17.2",
     "@types/three": "^0.144.0"
   }
 }

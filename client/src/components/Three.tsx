@@ -3,8 +3,6 @@ import * as THREE from 'three';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass'
-import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/TransparentBackgroundFixedUnrealBloomPass'
-import {BloomPass} from 'three/examples/jsm/postprocessing/BloomPass'
 import {ShaderPass} from 'three/examples/jsm/postprocessing/ShaderPass'
 import {CopyShader} from 'three/examples/jsm/shaders/CopyShader'
 import {FocusShader} from 'three/examples/jsm/shaders/FocusShader'
@@ -196,10 +194,7 @@ function Three(){
             }
         }
 
-        const scenePoints = new THREE.Scene();
-        scenePoints.add(points.current[0]);
-        const renderModel = new RenderPass( scenePoints, camera );
-        const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 2, 0.4, 0.85 );
+        const renderModel = new RenderPass( scene, camera );
         // const effectBloom = new BloomPass( 0.75 );
         // const effectCopy = new ShaderPass(CopyShader);
         // const effectFocus = new ShaderPass( FocusShader );
@@ -213,18 +208,10 @@ function Three(){
         // composer.addPass( effectBloom );
         // composer.addPass( effectFocus );
         composer.addPass( renderModel );
-        composer.addPass( bloomPass );
 
         
         function animation(time:number){
-            // renderer.autoClear = false;
-            // renderer.clear();
             
-            // camera.layers.set(1);
-            // composer.render();
-            
-            // renderer.clearDepth();
-            // camera.layers.set(0);
             renderer.render(scene, camera);
             control.update();
         
@@ -266,7 +253,6 @@ function Three(){
             const lastX = pointer.current.x;
             const lastY = pointer.current.y;
             requestAnimationFrame(()=>{onPointerMove(event, pointerCounter.current, lastX, lastY, 20)});
-            console.log(pointerCounter.current)
         }
 
         const onPointerMove = ( event:PointerEvent, counter:number, lastX:number, lastY:number, accelerate: number) => {
@@ -335,7 +321,6 @@ function Three(){
 
         const onMouseUp = ()=>{
             mousedown.current = false;
-            console.log(mousedown.current)
         }
 
         window.addEventListener("resize", onWindowResize, false);
