@@ -1,0 +1,137 @@
+.auditedDes, .rejectedDes, .criteriaDes{
+    text-shadow: 0px 0px 1px rgb(255, 180, 120), 0px 0px 5px rgb(255, 180, 120);
+    color: rgb(255, 180, 120);
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    font-family: 'Ramaraja-Regular';
+    font-size: 2vw;
+    letter-spacing: 2px;
+}
+.audited, .rejected, .criteria{
+    width: 50vw;
+    height: 25vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1), 5px 15px 20px rgba(0, 0, 0, 0.1), 15px 25px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 2vw;
+    z-index: 3;
+    padding: 2vw;
+    font-family: 'Ramaraja-Regular';
+    letter-spacing: 2px;
+    /* temp */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 0px 0px 1px white, 0px 0px 5px white;
+    color: white;
+    font-size: 2vw;
+}
+
+.sidebar{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    top: 50%;
+    left: 10%;
+    transform: translate(-50%, -50%);
+    font-size: 2vw;
+    color: rgb(255, 220, 120) !important;
+    text-shadow: 0px 0px 1px rgb(255, 220, 120), 0px 0px 5px rgb(255, 220, 120);
+    z-index: 3;
+}
+.sidebarOption{
+    margin-bottom: 5vw;
+    cursor: pointer;
+    color: rgb(255, 220, 120) !important;
+    text-decoration: none;
+}
+
+.sidebarOption::after{
+    display: block;
+    position: absolute;
+    content: "";
+    background: linear-gradient(to left, transparent 0%, transparent 50%, rgb(255, 220, 120) 50%, rgb(255, 220, 120) 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 0px;
+    transition: all 0.5s ease-in-out;
+    width: 100%;
+    height: 1px;
+}
+
+.sidebarOption::after{
+    background-size: 0% 0px !important;
+}
+
+
+.criteria{
+    justify-content: flex-start;
+}
+.criteriaComponents{
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    font-size: 1.5vw;
+    margin-top: 2vw;
+}
+.criteriaComponent{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgba(255, 180, 120);
+    box-shadow: 0px 0px 0px rgb(255, 180, 120), 0px 0px 10px rgb(255, 180, 120);
+    border-radius: 50%;
+    width: 15%;
+    height: 0px;
+    padding-top: 15%;
+}
+.criteriaComponent div:nth-child(1){
+    height: 30%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    left: 0px;
+    top: 20%;
+}
+.criteriaComponent div:nth-child(2){
+    height: 30%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    top: 55%;
+    left: 0px;
+    font-size: 1vw;
+}
+.criteriaComponent div svg{
+    width: 30%;
+    height: auto;
+}
+.criteriaText{
+    font-size: 1.2vw;
+    font-family: 'Ramaraja-Regular';
+    padding: 3vw;
+}
+    

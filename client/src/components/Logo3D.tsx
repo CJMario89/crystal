@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
-import { debounce } from "lodash";
 
 const Logo3D = () => {
     //GLTF
@@ -46,12 +45,10 @@ const Logo3D = () => {
         
             //renderer
             if(parentDom){
-                scaleSize.current = parentDom.clientWidth / 200;
+                scaleSize.current = parentDom.clientWidth / 150;
                 renderer.setClearColor( 0x000000, 0);
                 renderer.setPixelRatio(window.devicePixelRatio);
                 renderer.setSize( parentDom.clientWidth, parentDom.clientHeight );
-                console.log(parentDom.clientHeight)
-                console.log(parentDom.clientWidth)
                 camera.aspect = parentDom.clientWidth / parentDom.clientHeight;
                 camera.updateProjectionMatrix();
             }
@@ -81,7 +78,7 @@ const Logo3D = () => {
 
                 const pmremGenerator = new THREE.PMREMGenerator(renderer);
                 pmremGenerator.compileEquirectangularShader();
-                new THREE.TextureLoader().load("crystal-texture.svg", function(texture){
+                new THREE.TextureLoader().load("/crystal-texture.svg", function(texture){
                     var cubeMap = pmremGenerator.fromEquirectangular(texture);
                     const newEnvMap = cubeMap.texture;
             
@@ -110,6 +107,7 @@ const Logo3D = () => {
         function animation(time:number){
             renderer.render( scene, camera );
             control.update();
+            onWindowResize();
         
             if(logo.current !== undefined){
                 logo.current.rotation.y -= rotationAmount.current;
@@ -128,17 +126,17 @@ const Logo3D = () => {
 
         function onWindowResize() {
             if(parentDom){
-
-                camera.aspect = parentDom.clientWidth / parentDom.clientHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(parentDom.clientWidth, parentDom.clientHeight);
-                scaleSize.current = parentDom.clientWidth / 200;
-                logo.current?.scale.set(scaleSize.current, scaleSize.current, scaleSize.current);
+                if(scaleSize.current !== parentDom.clientWidth / 150){
+                    camera.aspect = parentDom.clientWidth / parentDom.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(parentDom.clientWidth, parentDom.clientHeight);
+                    scaleSize.current = parentDom.clientWidth / 150;
+                    logo.current?.scale.set(scaleSize.current, scaleSize.current, scaleSize.current);
+                }   
             }
         }
      
         const clickAnimation = ()=>{
-            console.log(mousedown.current)
             if(mousedown.current){
                 if(rotationAmount.current < 1){
                     rotationAmount.current += 0.0005;
@@ -165,7 +163,7 @@ const Logo3D = () => {
             mousedown.current = false;
         }
 
-            parentDom.addEventListener("resize", debounce(onWindowResize, 1000), false);
+            // parentDom.addEventListener("resize", , false);
             titleMain?.addEventListener("mouseenter", onMouseEnter)
             titleMain?.addEventListener("mouseleave", onMouseleave)
 
@@ -173,7 +171,6 @@ const Logo3D = () => {
 
         return ()=>{
             navbar?.classList.remove("navbarOnload");
-            console.log(navbar?.classList)
             stop.current = 1;
             while(scene.children.length > 0){ 
                 scene.remove(scene.children[0]); 

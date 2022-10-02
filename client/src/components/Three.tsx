@@ -2,19 +2,15 @@ import React, {useEffect, useRef} from "react";
 import * as THREE from 'three';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
-import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass'
-import {ShaderPass} from 'three/examples/jsm/postprocessing/ShaderPass'
-import {CopyShader} from 'three/examples/jsm/shaders/CopyShader'
-import {FocusShader} from 'three/examples/jsm/shaders/FocusShader'
-import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer'
 import "./css/Three.css"
-import { Mesh } from "three";
+import { TextureLoader } from "three";
 
 
 
 function Three(){
     //GLTF
     const logo = useRef<THREE.Points | undefined>();
+    const clouds = useRef<THREE.Mesh[]>([]);
     const points = useRef<THREE.Points[]>([]);
     const pointsPositionY = useRef<number[]>([]);
     const pointsPositionYFloat = useRef<number[]>([]);
@@ -26,7 +22,9 @@ function Three(){
     //Event Variable
     const pointer = useRef({x: 0, y: 0})
     const pointerCounter = useRef(0)
-    const scaleSize = useRef(window.innerWidth / 1800);
+    const initWidth = useRef(window.innerWidth);
+    const scaleSize = useRef(window.innerWidth / initWidth.current);
+    const logoScaleSize = useRef(5);
     const rotationAmount = useRef(0.001);
     const mousedown = useRef(false);
 
@@ -69,79 +67,49 @@ function Three(){
             control.minPolarAngle = Math.PI / 3;
             control.maxPolarAngle = Math.PI / 3;
         
-            //3D model
-            // const logoLoader = new GLTFLoader();
-            // logoLoader.load("/crystalLogo.glb", function(gltf){
-            //     logo.current = gltf.scene;
-            //     logo.current.rotation.y = 0;
-            //     logo.current.scale.set(scaleSize.current, scaleSize.current, scaleSize.current);
-            //     logo.current.traverse((child)=>{
-            //         if((child as THREE.Mesh).material !== undefined){
-            //             // ((child as THREE.Mesh).material as THREE.MeshPhysicalMaterial).color = new THREE.Color(0xff0000)
-            //         }
-            //     });
-
-
-            //     const pmremGenerator = new THREE.PMREMGenerator(renderer);
-            //     pmremGenerator.compileEquirectangularShader();
-            //     new THREE.TextureLoader().load("crystal-texture.svg", function(texture){
-            //         var cubeMap = pmremGenerator.fromEquirectangular(texture);
-            //         const newEnvMap = cubeMap.texture;
-            
-            //         gltf.scene.traverse(function(child){
-            //             for(var i = 0; i < child.children.length; i++){
-            //                 ((child.children[i] as THREE.Mesh).material as THREE.MeshStandardMaterial).envMap = newEnvMap;
-            //                 ((child.children[i] as THREE.Mesh).material as THREE.MeshStandardMaterial).envMapIntensity = 1;
-            //                 ((child.children[i] as THREE.Mesh).material as THREE.MeshStandardMaterial).opacity = 1;
-            //                 ((child.children[i] as THREE.Mesh).material as THREE.MeshStandardMaterial).needsUpdate = true;
-            //             }
-            //         });
-            
-            //         // scene.add( gltf.scene );
-            //         texture.dispose();
-            //     }) 
-            // });
-
+          
             const crystalLoader = new GLTFLoader();
             crystalLoader.load('crystalsubd.glb', (gltf)=>{
                 const positions = combineBuffer(gltf.scene, 'position');
-                createMesh(positions, scene, 3, 0, -100, -50, 0x77aaff, 0.3);
+                createMesh(positions, scene, logoScaleSize.current, 0, -100, -50, 0xccddff, 0.3);
+            });
+        }
+
+        const addSmoke = ()=>{
+            const cloudTexture = new TextureLoader().load('/clouds.png', (texture)=>{
+                const geometry = new THREE.PlaneGeometry(400, 400);
+                const material = new THREE.MeshLambertMaterial({
+                    color: 0xffffff,
+                    map: texture,
+                    transparent: true,
+                    opacity: 0.2
+                });
+
+                for(let i = 0; i < 5; i++){
+                    const mesh = new THREE.Mesh(geometry, material);
+                    mesh.position.set((Math.random()-0.5) * 200, (Math.random()-0.5) * 10, Math.random() * -50);
+                    mesh.rotation.z = Math.random();
+                    // mesh.lookAt(new THREE.Vector3(0, 15, 10));
+                    // mesh.position.set(0, 0, 0);
+                    scene.add(mesh);
+                    clouds.current.push(mesh);
+                }
             });
         }
 
         const addParticles = () => {
-            // const curve = new THREE.CatmullRomCurve3( [
-            //     new THREE.Vector3( -10, 0, 10 ),
-            //     new THREE.Vector3( -5, 5, 5 ),
-            //     new THREE.Vector3( 0, 0, 0 ),
-            //     new THREE.Vector3( 5, -5, 5 ),
-            //     new THREE.Vector3( 10, 0, 10 )
-            // ] );
-            
-            // const points = curve.getPoints( 50 );
-            // const geometry = new THREE.BufferGeometry().setFromPoints( points );
-            
-            // const material = new THREE.LineBasicMaterial( { color: 0xff0000 } );
-            
-            // const curveObject = new THREE.Line( geometry, material );
-            //const positions = combineBuffer(curveObject, 'position');
-
-
-
             const planetLoader = new GLTFLoader();
             planetLoader.load('planet4.glb', (gltf)=>{
                 const positions = combineBuffer(gltf.scene, 'position');
                 createMesh(positions, scene, 3, -30, -40, -50, 0xffaa77, 0.2);//orange
-                createMesh(positions, scene, 4, -45, -8, -50, 0x00ff9f, 0.2);//green
-                createMesh(positions, scene, 3, 15, -15, -50, 0x00b8ff, 0.2);//lblue
-                createMesh(positions, scene, 3.5, 35, -10, -50, 0x001eff, 0.2);//dblue
-                createMesh(positions, scene, 3.5, -25, -15, -50, 0xbd00ff, 0.2);//dpurple
-                createMesh(positions, scene, 5.5, 50, -45, -50, 0xd600ff, 0.2);//lpurple
-                createMesh(positions, scene, 5.5, -65, -35, -50, 0xffff77, 0.2);//yellow
-                createMesh(positions, scene, 2.5, 60, -20, -50, 0xff3333, 0.2);//red
+                createMesh(positions, scene, 4, -45, -8, -50, 0xaaffcc, 0.2);//green
+                createMesh(positions, scene, 3, 15, -15, -50, 0x099ccff, 0.2);//lblue
+                createMesh(positions, scene, 3.5, 35, -10, -50, 0x88aaff, 0.2);//dblue
+                createMesh(positions, scene, 3.5, -25, -15, -50, 0xffccff, 0.2);//dpink
+                createMesh(positions, scene, 5.5, 50, -45, -50, 0xffffdd, 0.2);//lyellow
+                createMesh(positions, scene, 5.5, -65, -35, -50, 0xffffaa, 0.2);//yellow
+                createMesh(positions, scene, 2.5, 60, -20, -50, 0xffddff, 0.2);//lpink
             })
-
-            // scene.add(curveObject)
         }
 
         function combineBuffer( model:THREE.Group, bufferName:string ) {
@@ -194,26 +162,14 @@ function Three(){
             }
         }
 
-        const renderModel = new RenderPass( scene, camera );
-        // const effectBloom = new BloomPass( 0.75 );
-        // const effectCopy = new ShaderPass(CopyShader);
-        // const effectFocus = new ShaderPass( FocusShader );
 
-        // effectFocus.uniforms[ 'screenWidth' ].value = window.innerWidth * window.devicePixelRatio;
-        // effectFocus.uniforms[ 'screenHeight' ].value = window.innerHeight * window.devicePixelRatio;
-
-
-        const composer = new EffectComposer( renderer );
-
-        // composer.addPass( effectBloom );
-        // composer.addPass( effectFocus );
-        composer.addPass( renderModel );
-
-        
+        let clock = new THREE.Clock();
+        let delta = 0;
         function animation(time:number){
-            
+            delta = clock.getDelta();
             renderer.render(scene, camera);
             control.update();
+            onWindowResize();
         
             if(logo.current !== undefined){
                 logo.current.rotation.y -= rotationAmount.current;
@@ -225,7 +181,10 @@ function Three(){
                 points.current[i].position.y = Math.sin(time / 2000 * pointsPositionYFloat.current[i]) + pointsPositionY.current[i];
             }
 
-
+            for(let i = 0; i < clouds.current.length; i++){
+                clouds.current[i].rotation.z += 0.2 * delta;
+                // points.current[i].position.y = Math.sin(time / 2000 * pointsPositionYFloat.current[i]) + pointsPositionY.current[i];
+            }
             
             if(stop.current === 1){
                 return;
@@ -237,14 +196,17 @@ function Three(){
         init3D();
         requestAnimationFrame(animation);
         addParticles();
+        addSmoke();
 
         function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-        
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            scaleSize.current = window.innerWidth / 1800;
-            logo.current?.scale.set(scaleSize.current, scaleSize.current, scaleSize.current);
+            if(scaleSize.current !== window.innerWidth /initWidth.current){
+                scaleSize.current = window.innerWidth / initWidth.current;
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+            
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                logo.current?.scale.set(scaleSize.current * logoScaleSize.current, scaleSize.current * logoScaleSize.current, scaleSize.current * logoScaleSize.current);
+            }
         }
 
 
@@ -257,8 +219,8 @@ function Three(){
 
         const onPointerMove = ( event:PointerEvent, counter:number, lastX:number, lastY:number, accelerate: number) => {
             
-            pointer.current.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-            pointer.current.y = (- ( event.clientY / window.innerHeight ) * 2 + 1) * 2;
+            pointer.current.x = (( event.clientX / window.innerWidth ) * 2 - 1) * 3;
+            pointer.current.y = (- ( event.clientY / window.innerHeight ) * 2 + 1) * 5;
             const segX = (pointer.current.x - control.target.x) / 30;
             const segY = (pointer.current.y - control.target.y) / 30;
             if(pointerCounter.current === counter){
@@ -307,7 +269,7 @@ function Three(){
                     for(let i = 0; i < points.current.length; i++){
                         (points.current[i].material as THREE.PointsMaterial).color = new THREE.Color(pointsColor.current[i]);
                         if(i === 0){
-                            (logo.current?.material as THREE.PointsMaterial).color = new THREE.Color(0x77aaff);
+                            (logo.current?.material as THREE.PointsMaterial).color = new THREE.Color(0xccddff);
                         }
                     }
                 }
@@ -323,7 +285,6 @@ function Three(){
             mousedown.current = false;
         }
 
-        window.addEventListener("resize", onWindowResize, false);
         window.addEventListener( 'pointermove', triggerPointerMove );
         window.addEventListener('mousedown', onMouseDown);
         window.addEventListener('mouseup', onMouseUp);

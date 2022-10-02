@@ -4,7 +4,6 @@ import {
     Routes,
     Route
   } from "react-router-dom";
-import Audited from './features/Audited/Audited';
 import Request from './features/Request/Request';
 import Pending from './features/Pending/Pending';
 import Main from './features/Main/Main';
@@ -14,6 +13,7 @@ import ContactInfoSection from './features/Request/ContactinfoSection/ContactInf
 import OtherInfoSection from './features/Request/OtherInfoSection/OtherInfoSection';
 import FinishSection from './features/Request/FinishSection/FinishSection';
 import Team from './features/Team/Team';
+import Projects from './features/Projects/Projects';
 
 
 
@@ -24,7 +24,7 @@ function App() {
             <Routes>
                 <Route path='/'>
                     <Route index element={<Main />}/>
-                    <Route path="audited" element={<Audited />} />
+                    <Route path="projects/*" element={<Projects />} />
                     <Route path="request">
                         <Route index element={<Request />} />
                         <Route path="projectInfoSection" element={<ProjectInfoSection />} />

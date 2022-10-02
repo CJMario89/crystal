@@ -8,6 +8,7 @@ const Team = () => {
     const GLTF = useRef<THREE.Group | undefined>();
     const stop = useRef<number>(0);
     const [ loading, setLoading ] = useState("loading")
+    const [ team, setTeam ] = useState("team")
 
     useEffect(()=>{
         const camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -62,9 +63,11 @@ const Team = () => {
                 scene.add( gltf.scene );
             },
             function ( xhr ) {
-                if(xhr.loaded > 31839480){
+                console.log(xhr.loaded);
+                if(xhr.loaded > 60438940){
                     
                     setLoading("loaded");
+                    setTeam("team teamOnload");
                 }
                 // console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
         
@@ -111,7 +114,7 @@ const Team = () => {
             <div className={loading}>
                 Loading<img src='loading.gif' alt=''></img>
             </div>
-            <div className='team'>
+            <div className={team}>
             </div>
         </>
     )

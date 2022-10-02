@@ -8,7 +8,7 @@ interface PROP{
 }
 
 function Navbar(props: PROP) {
-    let AuditedClassName = "ts" + (props.path.includes("audited") ? " cts" : "");
+    let AuditedClassName = "ts" + (props.path.includes("projects") ? " cts" : "");
     let RequestClassName = "ts" + (props.path.includes("request") ? " cts" : "");
     let PendingClassName = "ts" + (props.path.includes("pending") ? " cts" : "");
     let TeamClassName = "ts" + (props.path.includes("team") ? " cts" : ""); 
@@ -22,7 +22,7 @@ function Navbar(props: PROP) {
                         <Logo3D></Logo3D>
                     </div>
                 </Link>
-                <Link to="/audited" className={AuditedClassName}>Audited</Link>
+                <Link to="/projects" className={AuditedClassName}>Projects</Link>
                 <Link to="/request" className={RequestClassName}>Request</Link>
                 <Link to="/pending" className={PendingClassName}>Pending</Link>
                 <Link to="/team" className={TeamClassName}>Team</Link>
