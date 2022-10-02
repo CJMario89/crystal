@@ -37,7 +37,7 @@ const Logo3D = () => {
             
         
             //light
-            const light = new THREE.HemisphereLight( 0xff6666,  0xff6666, 35 );
+            const light = new THREE.HemisphereLight( 0xff6666,  0xff6666, 50 );
             light.position.set(0, 3, 0);
             light.lookAt(new THREE.Vector3(0, 3, 0));
             scene.add( light );

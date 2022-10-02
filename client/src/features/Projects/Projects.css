@@ -65,14 +65,15 @@
     content: "";
     background: linear-gradient(to left, transparent 0%, transparent 50%, rgb(255, 220, 120) 50%, rgb(255, 220, 120) 100%);
     background-repeat: no-repeat;
-    background-size: 100% 0px;
-    transition: all 0.5s ease-in-out;
+    background-size: 200% 2px;
+    background-position: 100% 100%;
+    transition: all 0.7s ease-in-out;
     width: 100%;
     height: 1px;
 }
 
-.sidebarOption::after{
-    background-size: 0% 0px !important;
+.focusOption::after{
+    background-position: 0% 100% !important;
 }
 
 

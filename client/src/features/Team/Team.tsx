@@ -63,7 +63,6 @@ const Team = () => {
                 scene.add( gltf.scene );
             },
             function ( xhr ) {
-                console.log(xhr.loaded);
                 if(xhr.loaded > 60438940){
                     
                     setLoading("loaded");

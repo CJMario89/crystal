@@ -45,7 +45,7 @@ function Three(){
             
         
             //light
-            const light = new THREE.HemisphereLight( 0xff6666,  0xff6666, 35 );
+            const light = new THREE.HemisphereLight( 0xff6666,  0xff6666, 3 );
             light.position.set(0, 3, 0);
             light.lookAt(new THREE.Vector3(0, 3, 0));
             scene.add( light );
@@ -79,13 +79,13 @@ function Three(){
             new TextureLoader().load('/clouds.png', (texture)=>{
                 const geometry = new THREE.PlaneGeometry(400, 400);
                 const material = new THREE.MeshLambertMaterial({
-                    color: 0xffffff,
+                    color: 0xaaaaaa,
                     map: texture,
                     transparent: true,
                     opacity: 0.2
                 });
 
-                for(let i = 0; i < 5; i++){
+                for(let i = 0; i < 3; i++){
                     const mesh = new THREE.Mesh(geometry, material);
                     mesh.position.set((Math.random()-0.5) * 200, (Math.random()-0.5) * 10, Math.random() * -50);
                     mesh.rotation.z = Math.random();
