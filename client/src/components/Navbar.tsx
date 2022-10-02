@@ -1,5 +1,5 @@
 import './css/Navbar.css';
-import { Link, LinkProps } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Logo3D from './Logo3D';
 
 

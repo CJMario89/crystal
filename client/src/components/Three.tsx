@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import * as THREE from 'three';
-import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import "./css/Three.css"
 import { TextureLoader } from "three";
@@ -76,7 +76,7 @@ function Three(){
         }
 
         const addSmoke = ()=>{
-            const cloudTexture = new TextureLoader().load('/clouds.png', (texture)=>{
+            new TextureLoader().load('/clouds.png', (texture)=>{
                 const geometry = new THREE.PlaneGeometry(400, 400);
                 const material = new THREE.MeshLambertMaterial({
                     color: 0xffffff,
