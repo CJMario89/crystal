@@ -141,7 +141,7 @@ const Logo3D = () => {
             console.log(mousedown.current)
             if(mousedown.current){
                 if(rotationAmount.current < 1){
-                    rotationAmount.current += 0.005;
+                    rotationAmount.current += 0.0005;
                     requestAnimationFrame(clickAnimation);
                 }else{
                     requestAnimationFrame(clickAnimation);

@@ -188,7 +188,7 @@ function Three(){
                     mesh.rotation.z = Math.abs(Math.abs(Math.random() - 0.5) - 0.25);
                     points.current.push(mesh);
                     pointsPositionY.current.push(y);
-                    pointsPositionYFloat.current.push(Math.random() * 2);
+                    pointsPositionYFloat.current.push(Math.random() * 2.5);
                     pointsColor.current.push(color)
                 }else if(pointSize === 0.3){
                     logo.current = mesh;
@@ -298,6 +298,7 @@ function Three(){
                     requestAnimationFrame(clickAnimation);
                 }else{
                     rotationAmount.current = 0.001;
+                    changeColor();
                 }
             }
             if(counter % 10 === 0){
@@ -316,13 +317,14 @@ function Three(){
                     }
                 }
             }else{
-                // for(let i = 0; i < points.current.length; i++){
-                //     (points.current[i].material as THREE.PointsMaterial).color = new THREE.Color(pointsColor.current[i]);
-                //     if(i === 0){
-                //         const rand = Math.floor(Math.random() * 8);
-                //         (logo.current?.material as THREE.PointsMaterial).color = new THREE.Color(0x77aaff);
-                //     }
-                // }
+                if(rotationAmount.current <= 0.001){
+                    for(let i = 0; i < points.current.length; i++){
+                        (points.current[i].material as THREE.PointsMaterial).color = new THREE.Color(pointsColor.current[i]);
+                        if(i === 0){
+                            (logo.current?.material as THREE.PointsMaterial).color = new THREE.Color(0x77aaff);
+                        }
+                    }
+                }
             }
         }
 
