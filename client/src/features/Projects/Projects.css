@@ -47,7 +47,7 @@
     top: 50%;
     left: 10%;
     transform: translate(-50%, -50%);
-    font-size: 2vw;
+    font-size: 1.5vw;
     color: rgb(255, 220, 120) !important;
     text-shadow: 0px 0px 1px rgb(255, 220, 120), 0px 0px 5px rgb(255, 220, 120);
     z-index: 3;
