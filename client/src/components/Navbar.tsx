@@ -1,6 +1,6 @@
 import './css/Navbar.css';
 import { Link } from "react-router-dom";
-import Logo3D from './Logo3D';
+// import Logo3D from './Logo3D';
 
 
 interface PROP{
@@ -15,11 +15,11 @@ function Navbar(props: PROP) {
     let mainClassName = "tm" + (props.path === '/' ? " ctm" : "");
     return (
         <div>
-            <div className='navbarContainer'>
+            <div className='navbarContainer navbarOnload'>
                 <Link to="/" className={mainClassName}>
                     Crystal Audit
                     <div className='logo3D'>
-                        <Logo3D></Logo3D>
+                        {/* <Logo3D></Logo3D> */}
                     </div>
                 </Link>
                 <Link to="/projects" className={AuditedClassName}>Projects</Link>
